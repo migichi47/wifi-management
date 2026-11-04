@@ -1,7 +1,13 @@
-import React from "react";
+import { Routes } from "react-router-dom";
 
 const App = () => {
-  return <div className="bg-black min-h-screen text-white">App</div>;
+  return (
+    <div>
+      <Routes>
+       
+      </Routes>
+    </div>
+  );
 };
 
 export default App;

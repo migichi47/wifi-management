@@ -1,77 +1,72 @@
-import { Search, Bell, ChevronDown, Menu } from "lucide-react";
+import { Search, Menu, Wifi, Bell, Plus } from "lucide-react";
 
-const Header = ({ onMenuClick }) => {
+const Header = () => {
   return (
-    <header className="sticky top-0 z-20 flex h-[72px] items-center border-b border-slate-200 bg-white/95 px-4 backdrop-blur sm:px-6 lg:px-8">
-      <button
-        onClick={openMenu}
-        className="mr-3 grid size-10 place-items-center rounded-lg border border-slate-200 lg:hidden"
-      >
-        <Menu size={20} />
-      </button>
-      <div className="min-w-0">
-        <div className="flex items-center gap-2 text-xs text-slate-400">
-          <span>WiFi Manager</span>
-          <ChevronRight size={12} />
-          <span className="truncate text-slate-600">{info.sub}</span>
-        </div>
-        <h1 className="truncate text-lg font-bold tracking-tight text-slate-900">
-          {info.title}
-        </h1>
-      </div>
-      <div className="ml-auto flex items-center gap-2 sm:gap-3">
+    <header className="sticky top-0 z-20 flex h-[72px] items-center justify-between border-b border-slate-200 bg-white/95 px-4 backdrop-blur sm:px-6 lg:px-8">
+      <div className="flex items-center gap-6">
+        <button className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 lg:hidden">
+          <Menu size={21} />
+        </button>
+
         <label className="relative hidden md:block">
           <Search
             size={17}
             className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
           />
           <input
-            className="h-10 w-56 rounded-lg border border-slate-200 bg-slate-50 pl-9 pr-3 text-sm outline-none transition focus:border-blue-500 focus:bg-white focus:ring-3 focus:ring-blue-50 xl:w-72"
+            type="text"
             placeholder="Search customers..."
+            className="h-10 w-56 rounded-lg border border-slate-200 bg-slate-50 pl-9 pr-3 text-sm outline-none transition focus:border-blue-500 focus:bg-white focus:ring-3 focus:ring-blue-50 xl:w-72"
           />
         </label>
-        <button className="relative grid size-10 place-items-center rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">
-          <Bell size={19} />
-          <span className="absolute right-2 top-2 size-2 rounded-full border-2 border-white bg-red-500" />
-        </button>
-        {action && (
-          <Button onClick={action.action} className="hidden sm:flex">
-            <action.icon size={17} />
-            {action.label}
-          </Button>
-        )}
-        <div className="relative">
-          <button
-            onClick={() => setUserMenu(!userMenu)}
-            className="flex items-center gap-2 rounded-lg p-1 hover:bg-slate-50"
+
+        <nav className="hidden items-center gap-5 lg:flex">
+          <a
+            href="/dashboard"
+            className="text-sm font-semibold text-slate-900 hover:text-primary"
           >
-            <Avatar initials="AM" small />
-            <ChevronDown size={15} className="hidden text-slate-500 sm:block" />
-          </button>
-          {userMenu && (
-            <div className="absolute right-0 top-12 w-52 rounded-xl border border-slate-200 bg-white p-2 shadow-xl">
-              <div className="border-b border-slate-100 px-3 py-2">
-                <p className="text-sm font-semibold">Alex Muthama</p>
-                <p className="text-xs text-slate-500">
-                  admin@wifimanager.co.ke
-                </p>
-              </div>
-              <button
-                onClick={() => {
-                  navigate("settings")
-                  setUserMenu(false)
-                }}
-                className="mt-1 flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-slate-50"
-              >
-                <User size={16} />
-                Profile settings
-              </button>
-              <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-600 hover:bg-red-50">
-                <LogOut size={16} />
-                Log out
-              </button>
-            </div>
-          )}
+            Dashboard
+          </a>
+
+          <a
+            href="/subscribers"
+            className="text-sm font-medium text-primary transition hover:text-primary/80"
+          >
+            Subscribers
+          </a>
+        </nav>
+      </div>
+
+      <div className="ml-auto flex items-center gap-2 sm:gap-3">
+        <div className="hidden items-center gap-2 rounded-lg p-3 sm:flex border border-slate-200">
+          <Wifi size={20} className="text-emerald-600" />
+        </div>
+
+        <button
+          aria-label="Notifications"
+          className="relative rounded-lg border border-slate-200 p-3 text-slate-600 transition hover:bg-slate-50"
+        >
+          <Bell size={20} />
+          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-secondary ring-2 ring-white" />
+        </button>
+
+        <div className="mx-1 hidden h-8 w-px bg-slate-200 sm:block" />
+
+        <button className="hidden items-center gap-2 rounded-lg border border-slate-200 px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50 sm:flex">
+          <Plus size={17} />
+          <span>Add Customer</span>
+        </button>
+
+        <button className="flex items-center gap-2 rounded-lg bg-primary px-3 py-2.5 text-sm font-medium text-white shadow-sm transition hover:opacity-90">
+          <Plus size={17} />
+          <span className="hidden sm:inline">Record Payment</span>
+          <span className="sm:hidden">Payment</span>
+        </button>
+
+        <div className="mx-1 hidden h-8 w-px bg-slate-200 sm:block" />
+
+        <div className="rounded-full border bg-gray-100 border-slate-200 px-2.5 py-2.5 text-sm font-medium">
+          <p className="text-xl text-primary">MK</p>
         </div>
       </div>
     </header>

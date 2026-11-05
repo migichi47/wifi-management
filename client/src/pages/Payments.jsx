@@ -8,6 +8,8 @@ import {
   Printer,
   WavesHorizontal,
 } from "lucide-react";
+import RecordPaymentModal from "../components/modals/RecordPaymentModal";
+import { useState } from "react";
 
 function StatCard({ value, icon: Icon, description, descr2, descr3 }) {
   return (
@@ -45,6 +47,7 @@ const payments = Array.from({ length: 5 }, (_, index) => ({
 }));
 
 const Payments = () => {
+    const [showRecordPaymentModal, setShowRecordPaymentModal] = useState(false);
   return (
     <div className="flex flex-col gap-5">
       {/* Page Header */}
@@ -344,6 +347,8 @@ const Payments = () => {
           </div>
         </div>
       </div>
+      {showRecordPaymentModal && <RecordPaymentModal onClose={() => setShowRecordPaymentModal(false)} onSubmit={null} />}
+      {/* <RecordPaymentModal /> */}
     </div>
   );
 };

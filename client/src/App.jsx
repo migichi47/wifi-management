@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Layout from "./pages/Layout";
+import Payments from "./pages/Payments";
 
 const App = () => {
   return (
@@ -8,6 +9,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
+          <Route path="/payments" element={<Payments />} />
         </Route>
       </Routes>
     </div>

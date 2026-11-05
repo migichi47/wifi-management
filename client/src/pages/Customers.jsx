@@ -1,4 +1,3 @@
-
 import {
   AlarmClock,
   CalendarDays,
@@ -9,23 +8,21 @@ import {
   UserPlus2,
   Users2,
 } from "lucide-react";
+import AddCustomerModal from "../components/modals/AddCustomerModal";
+import { useState } from "react";
 
 function StatCard({ value, icon: Icon, description, descr2 }) {
   return (
     <div className="flex flex-1 flex-col gap-3 border border-gray-300 bg-white p-5 pb-7 shadow-sm">
       <div className="flex items-center justify-between">
-        <p className="text-sm font-medium text-gray-500">
-          {description}
-        </p>
+        <p className="text-sm font-medium text-gray-500">{description}</p>
 
         <div className="rounded-xl bg-primary p-2">
           <Icon className="h-5 w-5 text-gray-200" />
         </div>
       </div>
 
-      <h2 className="text-2xl font-bold text-gray-900">
-        {value}
-      </h2>
+      <h2 className="text-2xl font-bold text-gray-900">{value}</h2>
 
       <div className="flex flex-wrap items-center gap-2 text-xs">
         <span className="h-2 w-2 rounded-full bg-secondary" />
@@ -41,7 +38,9 @@ const customers = Array.from({ length: 5 }, (_, index) => ({
   phone: "+254712345678",
   package: "Weekly",
   amount: "KSh 150",
-  mac: `00:1A:2B:3C:4D:${String(0x5e + index).toString(16).toUpperCase()}`,
+  mac: `00:1A:2B:3C:4D:${String(0x5e + index)
+    .toString(16)
+    .toUpperCase()}`,
   roomId: `Cida ${index + 1}`,
   expiry: "Nov 20, 2026",
   countdown: "3 days left",
@@ -49,9 +48,13 @@ const customers = Array.from({ length: 5 }, (_, index) => ({
 }));
 
 const Customers = () => {
+  const [isAddCustomerModalOpen, setIsAddCustomerModalOpen] = useState(true);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
   return (
     <div className="flex flex-col gap-5">
-
       {/* Page Header */}
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div>
@@ -76,6 +79,7 @@ const Customers = () => {
 
           <button
             type="button"
+            onClick={() => setIsAddCustomerModalOpen(true)}
             className="flex flex-1 items-center justify-center gap-2 bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary/80 sm:flex-none"
           >
             <Users2 className="h-4 w-4" />
@@ -118,10 +122,8 @@ const Customers = () => {
       {/* Filters */}
       <div className="rounded-2xl border border-gray-200 bg-white">
         <div className="flex flex-col gap-4 p-4">
-
           {/* Search and Filters */}
           <div className="flex flex-col flex-wrap gap-3 xl:flex-row xl:items-center">
-
             {/* Search */}
             <div className="flex w-full items-center gap-2 rounded-lg border border-gray-300 p-3 xl:flex-1">
               <Filter className="h-5 w-5 shrink-0 text-gray-400" />
@@ -176,7 +178,6 @@ const Customers = () => {
       <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[900px] table-auto">
-
             <thead className="bg-gray-100 text-xs text-gray-500">
               <tr>
                 <th className="p-3 text-left">
@@ -208,11 +209,7 @@ const Customers = () => {
 
             <tbody className="divide-y divide-gray-200 text-sm">
               {customers.map((customer) => (
-                <tr
-                  key={customer.id}
-                  className="transition hover:bg-gray-50"
-                >
-
+                <tr key={customer.id} className="transition hover:bg-gray-50">
                   {/* Checkbox */}
                   <td className="p-3">
                     <input
@@ -259,9 +256,7 @@ const Customers = () => {
                       {customer.package}
                     </p>
 
-                    <p className="text-gray-500">
-                      {customer.amount}
-                    </p>
+                    <p className="text-gray-500">{customer.amount}</p>
                   </td>
 
                   {/* Expiry */}
@@ -270,9 +265,7 @@ const Customers = () => {
                       {customer.expiry}
                     </p>
 
-                    <p className="text-gray-500">
-                      {customer.countdown}
-                    </p>
+                    <p className="text-gray-500">{customer.countdown}</p>
                   </td>
 
                   {/* Status */}
@@ -302,7 +295,6 @@ const Customers = () => {
                       </button>
                     </div>
                   </td>
-
                 </tr>
               ))}
             </tbody>
@@ -358,6 +350,12 @@ const Customers = () => {
           </div>
         </div>
       </div>
+      {isAddCustomerModalOpen && (
+        <AddCustomerModal
+          onClose={() => setIsAddCustomerModalOpen(false)}
+          onSubmit={handleSubmit}
+        />
+      )}
     </div>
   );
 };
